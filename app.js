@@ -1,3 +1,5 @@
+
+                            //  1.Fibonacci Series:
 function fibonacci(n) {
     if (n === 0) {
       return 0;
@@ -10,7 +12,8 @@ function fibonacci(n) {
   
 
   console.log(fibonacci(7));
-
+ 
+                            // 2. The sum of Array Elements:
   function arraySum(arr, n) {
     if (n === 0) {
       return 0;
@@ -24,7 +27,7 @@ function fibonacci(n) {
   console.log("Sum of array elements:", arraySum(arr, n));
 
 
-
+                                //   3.Reverse a String:
   function reverseString(str) {
     
     if (str.length <= 1) {
@@ -35,5 +38,6 @@ function fibonacci(n) {
   }
   
 console.log(reverseString("duomham "));
+                                        
   
   
