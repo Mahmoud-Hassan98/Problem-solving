@@ -49,54 +49,39 @@ console.log(reverseString("duomham "));
                   // 1. Implement a function that returns the minimum element in a stack in constant time complexity.
 
 
+function minElement(stack) {
 
-
-  
-class MinStack {
-  constructor() {
-    this.stack = [];
-    this.minStack = [];
-  }
-
-  push(value) {
-    this.stack.push(value);
-    if (this.minStack.length === 0 || value <= this.getMin()) {
-      this.minStack.push(value);
+   */
+  let min = stack[0]; // Initialize the minimum to the first element in the stack
+  for (let i = 1; i < stack.length; i++) {
+    // Iterate over the remaining elements in the stack
+    if (stack[i] < min) {
+      // If the current element is smaller than the current minimum, update the minimum
+      min = stack[i];
     }
   }
-
-  pop() {
-    const value = this.stack.pop();
-    if (value === this.getMin()) {
-      this.minStack.pop();
-    }
-    return value;
-  }
-
-  getMin() {
-    if (this.minStack.length === 0) {
-      throw new Error("Stack is empty");
-    }
-    return this.minStack[this.minStack.length - 1];
-  }
+  return min;
 }
-
                          // 2. Given a queue of integers, reverse the order of the elements in the queue.
 
  
 function reverseQueue(queue) {
-  const stack = [];
+  /*
+   * Reverses the order of elements in the given queue.
+   *
+   * Args:
+   *   queue: a queue represented as an array
+   *
+   * Returns:
+   *   The reversed queue
+   */
+  let reversed = []; // Create an empty array to hold the reversed queue
   while (queue.length > 0) {
-    stack.push(queue.shift());
+    // While the original queue is not empty
+    reversed.push(queue.pop()); // Remove and add the last element of the original queue to the reversed queue
   }
-  while (stack.length > 0) {
-    queue.push(stack.pop());
-  }
-  return queue;
+  return reversed;
 }
-
-const queue = [1, 2, 3, 4, 5];
-reverseQueue(queue); // [5, 4, 3, 2, 1]
 
 
                          // 3.Implement a Queue using 2 stacks s1 and s2.
