@@ -119,64 +119,154 @@ console.log(q.dequeue()); // "banana"
                       // linked list 4. Create a function that takes a LinkedList and deletes the middle node in it and returns it
 
 
-function deleteMiddleNode(list) {
-  let slow = list.head;
-  let fast = list.head;
-  let prev = null;
-
-  while (fast !== null && fast.next !== null) {
-    fast = fast.next.next;
-    prev = slow;
-    slow = slow.next;
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
   }
-
-  if (prev !== null) {
-    prev.next = slow.next;
-  } else {
-    list.head = slow.next;
-  }
-
-  list.length--;
-
-  return slow.value;
 }
 
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
 
-const list = new LinkedList();
-list.append(1);
-list.append(2);
-list.append(3);
-list.append(4);
-list.append(5);
+  append(value) {
+    const newNode = new Node(value);
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+    this.length++;
+  }
 
-deleteMiddleNode(list); // 3
+  deleteMiddleNode() {
+    if (this.length < 2) {
+      throw new Error('LinkedList must have at least 2 nodes.');
+    }
 
-console.log(list.toArray()); // [1, 2, 4, 5]
+    let slow = this.head;
+    let fast = this.head.next;
+
+    while (fast && fast.next) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+
+    // slow is now pointing to the middle node
+    const middleNode = slow.next;
+    slow.next = middleNode.next;
+    middleNode.next = null;
+    this.length--;
+
+    return middleNode;
+  }
+}
 
 
 
                                   //  5. Create a function that takes a LinkedList and reverses it
 
-  function reverseLinkedList(list) {
-  let prev = null;
-  let current = list.head;
 
-  while (current !== null) {
-    let next = current.next;
-    current.next = prev;
-    prev = current;
+class LinkedListNode {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  append(value) {
+    const newNode = new LinkedListNode(value);
+
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+
+    this.length++;
+  }
+
+  print() {
+    let current = this.head;
+    let result = '';
+    while (current) {
+      result += current.value;
+      current = current.next;
+      if (current) result += ' -> ';
+    }
+    console.log(result);
+  }
+
+  reverse() {
+    let previous = null;
+    let current = this.head;
+    let next = null;
+
+    while (current) {
+      next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
+    }
+
+    this.tail = this.head;
+    this.head = previous;
+  }
+}
+
+function reverseLinkedList(linkedList) {
+  let previous = null;
+  let current = linkedList.head;
+  let next = null;
+
+  while (current) {
+    next = current.next;
+    current.next = previous;
+    previous = current;
     current = next;
   }
 
-  list.head = prev;
+  linkedList.tail = linkedList.head;
+  linkedList.head = previous;
+
+  return linkedList;
 }
-const list = new LinkedList();
-list.append(1);
-list.append(2);
-list.append(3);
-list.append(4);
-list.append(5);
 
-reverseLinkedList(list);
+// Create a linked list
+const linkedList = new LinkedList();
+linkedList.append(1);
+linkedList.append(2);
+linkedList.append(3);
+linkedList.append(4);
 
-console.log(list.toArray()); // [5, 4, 3, 2, 1]
+// Print the original linked list
+linkedList.print(); // "1 -> 2 -> 3 -> 4"
+
+// Reverse the linked list using the `reverse` method
+linkedList.reverse();
+
+// Print the reversed linked list
+linkedList.print(); // "4 -> 3 -> 2 -> 1"
+
+// Reverse the linked list using the `reverseLinkedList` function
+reverseLinkedList(linkedList);
+
+// Print the reversed linked list
+linkedList.print(); // "1 -> 2 -> 3 -> 4"
+
+
