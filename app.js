@@ -84,37 +84,36 @@ function reverseQueue(queue) {
 }
 
 
+
                          // 3.Implement a Queue using 2 stacks s1 and s2.
-const s1 = []; // stack 1
-const s2 = []; // stack 2
-
-function enqueue(value) {
-  while (s1.length > 0) {
-    s2.push(s1.pop());
+class Queue {
+  constructor() {
+    this.stack1 = [];
+    this.stack2 = [];
   }
-  s1.push(value);
-  while (s2.length > 0) {
-    s1.push(s2.pop());
+
+  enqueue(value) {
+    this.stack1.push(value);
+  }
+
+  dequeue() {
+    if (this.stack2.length === 0) {
+      while (this.stack1.length > 0) {
+        this.stack2.push(this.stack1.pop());
+      }
+    }
+
+    return this.stack2.pop();
   }
 }
+const q = new Queue();
 
-function dequeue() {
-  if (s1.length === 0) {
-    return undefined;
-  }
-  return s1.pop();
-}
+q.enqueue("apple");
+q.enqueue("banana");
+q.enqueue("cherry");
+console.log(q.dequeue()); // "apple"
+console.log(q.dequeue()); // "banana"
 
-function peek() {
-  if (s1.length === 0) {
-    return undefined;
-  }
-  return s1[s1.length - 1];
-}
-
-function isEmpty() {
-  return s1.length === 0;
-}
 
 
                       // linked list 4. Create a function that takes a LinkedList and deletes the middle node in it and returns it
